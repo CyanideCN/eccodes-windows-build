@@ -26,9 +26,6 @@ jobs:
           python-version: "3.10"
           environment-file: environment.yaml
           activate-environment: build
-      - run: |
-          conda info
-          conda list
       - name: Download ecCodes
         run: python download.py
       - name: Build
@@ -36,17 +33,26 @@ jobs:
           cd eccodes-2.30.2-Source
           mkdir build && cd build
           cmake -G "NMake Makefiles" ^
-            -D CMAKE_INSTALL_PREFIX=${{ env.install_dir }} ^
             -D CMAKE_BUILD_TYPE=Release ^
             -D ENABLE_FORTRAN=0 ^
             -D ENABLE_PYTHON=0 ^
             -D ENABLE_NETCDF=0 ^
             -D ENABLE_PNG=1 ^
             -D ENABLE_JPG=1 ^
-            -D OPENJPEG_INCLUDE_DIR=${{ env.conda_dir }}\Library\include\openjpeg-2.5.2 ^
+            -D OPENJPEG_INCLUDE_DIR=${{ env.conda_dir }}\Library\include\openjpeg-2.5.0 ^
             -D IEEE_LE=1 ^
             -D ENABLE_EXAMPLES=0 ^
             -D ENABLE_MEMFS=0 ^
             -D ENABLE_TESTS=0 ^
-            -D ENABLE_EXTRA_TESTS=OFF ^
+            -D ENABLE_EXTRA_TESTS=OFF
           nmake install
+          copy "${{ env.conda_dir }}\Library\bin\openjp2.dll" "${{ env.install_dir }}\bin\"
+          copy "${{ env.conda_dir }}\Library\bin\libpng16.dll" "${{ env.install_dir }}\bin\"
+          copy "%${{ env.conda_dir }}\Library\bin\zlib.dll" "${{ env.install_dir }}\bin\"
+          7z a eccodes-win-x64.zip "${{ env.install_dir }}"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: eccodes_bin
+          path: eccodes-win-x64.zip
