@@ -29,6 +29,8 @@ jobs:
       - name: Download ecCodes
         run: python download.py
       - uses: ilammy/msvc-dev-cmd@v1
+      - name: Install linux utils
+        run: conda install -c msys2 m2-bash m2-findutils m2-coreutils m2-grep m2-sed m2-gawk m2-diffutils m2-perl
       - name: Build
         run: |
           cd eccodes-2.30.2-Source
