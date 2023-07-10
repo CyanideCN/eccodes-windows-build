@@ -8,7 +8,7 @@ build_path = os.path.join(cwd, source_dir, 'build')
 print(build_path)
 os.makedirs(build_path)
 os.chdir(build_path)
-subprocess.call('cmake -G "NMake Makefiles"',
+subprocess.call(['cmake -G "NMake Makefiles"',
             '-D CMAKE_INSTALL_PREFIX=C:\eccodes',
             '-D CMAKE_BUILD_TYPE=Release',
             '-D ENABLE_FORTRAN=0',
@@ -21,4 +21,4 @@ subprocess.call('cmake -G "NMake Makefiles"',
             '-D ENABLE_EXAMPLES=0',
             '-D ENABLE_MEMFS=0',
             '-D ENABLE_TESTS=0',
-            '-D ENABLE_EXTRA_TESTS=OFF', shell=True, stdout=subprocess.PIPE)
+            '-D ENABLE_EXTRA_TESTS=OFF'], shell=True, stdout=subprocess.PIPE)
