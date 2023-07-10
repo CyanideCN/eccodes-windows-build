@@ -29,6 +29,7 @@ jobs:
       - name: Download ecCodes
         run: python download.py
       - name: Build
+        uses: ilammy/msvc-dev-cmd@v1
         run: |
           python run_cmake.py
           nmake install
