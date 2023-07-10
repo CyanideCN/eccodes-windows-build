@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 eccodes_version = '2.30.2'
@@ -7,5 +8,7 @@ url = f'https://confluence.ecmwf.int/download/attachments/45757960/eccodes-{ecco
 def call_command(cmd):
     return subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
 
+print(os.getcwd())
 call_command(['curl', '-o', 'sources.tar.gz', url])
 call_command('7z x -tgzip -so sources.tar.gz | 7z x -si -ttar')
+os.environ['ECCODES_SOURCE_DIR'] = dir_name
