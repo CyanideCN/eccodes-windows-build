@@ -4,4 +4,4 @@ channels:
 dependencies:
   - cmake
   - libpng
-  - openjpeg
+  - openjpeg==2.5.2
