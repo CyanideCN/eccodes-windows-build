@@ -20,4 +20,4 @@ def list_files(startpath):
         for f in files:
             print('{}{}'.format(subindent, f))
 
-list_files(r'C:\Miniconda\Library\include')
+list_files(r'C:\Miniconda\envs\build\Library')
