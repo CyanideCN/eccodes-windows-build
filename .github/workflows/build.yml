@@ -7,8 +7,8 @@ on:
     branches:
       - main
 env:
-  install_dir: C:\eccodes
-  conda_dir: C:\Miniconda
+  install_dir: C:/eccodes
+  conda_dir: C:/Miniconda
 
 jobs:
   build:
@@ -33,11 +33,11 @@ jobs:
         run: |
           cd eccodes-2.30.2-Source
           mkdir build && cd build
-          cmake ../CMakeLists.txt -G "NMake Makefiles" -D CMAKE_INSTALL_PREFIX=${{ env.install_dir }} -D CMAKE_BUILD_TYPE=Release -D ENABLE_FORTRAN=0 -D ENABLE_PYTHON=0 -D ENABLE_NETCDF=0 -D ENABLE_PNG=0 -D ENABLE_JPG=1 -D ENABLE_AEC=OFF -D OPENJPEG_INCLUDE_DIR=${{ env.conda_dir }}\Library\include\openjpeg-2.5.0 -D IEEE_LE=1 -D ENABLE_EXAMPLES=0 -D ENABLE_MEMFS=0 -D ENABLE_TESTS=0 -D ENABLE_EXTRA_TESTS=OFF
+          cmake ../CMakeLists.txt -G "NMake Makefiles" -D CMAKE_INSTALL_PREFIX=${{ env.install_dir }} -D CMAKE_BUILD_TYPE=Release -D ENABLE_FORTRAN=0 -D ENABLE_PYTHON=0 -D ENABLE_NETCDF=0 -D ENABLE_PNG=0 -D ENABLE_JPG=1 -D ENABLE_AEC=OFF -D OPENJPEG_INCLUDE_DIR=${{ env.conda_dir }}/Library/include/openjpeg-2.5.0 -D IEEE_LE=1 -D ENABLE_EXAMPLES=0 -D ENABLE_MEMFS=0 -D ENABLE_TESTS=0 -D ENABLE_EXTRA_TESTS=OFF
           nmake install
-          copy "${{ env.conda_dir }}\Library\bin\openjp2.dll" "${{ env.install_dir }}\bin\"
-          copy "${{ env.conda_dir }}\Library\bin\libpng16.dll" "${{ env.install_dir }}\bin\"
-          copy "${{ env.conda_dir }}\Library\bin\zlib.dll" "${{ env.install_dir }}\bin\"
+          copy "${{ env.conda_dir }}/Library/bin/openjp2.dll" "${{ env.install_dir }}/bin/"
+          copy "${{ env.conda_dir }}/Library/bin/libpng16.dll" "${{ env.install_dir }}/bin/"
+          copy "${{ env.conda_dir }}/Library/bin/zlib.dll" "${{ env.install_dir }}/bin/"
           7z a eccodes-win-x64.zip "${{ env.install_dir }}"
 
       - name: Upload artifact

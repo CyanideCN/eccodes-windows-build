@@ -10,3 +10,14 @@ def call_command(cmd):
 
 call_command(['curl', '-o', 'sources.tar.gz', url])
 call_command('7z x -tgzip -so sources.tar.gz | 7z x -si -ttar')
+
+def list_files(startpath):
+    for root, dirs, files in os.walk(startpath):
+        level = root.replace(startpath, '').count(os.sep)
+        indent = ' ' * 4 * (level)
+        print('{}{}/'.format(indent, os.path.basename(root)))
+        subindent = ' ' * 4 * (level + 1)
+        for f in files:
+            print('{}{}'.format(subindent, f))
+
+list_files(r'C:\Miniconda\Library\include')
