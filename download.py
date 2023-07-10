@@ -10,6 +10,3 @@ def call_command(cmd):
 
 call_command(['curl', '-o', 'sources.tar.gz', url])
 call_command('7z x -tgzip -so sources.tar.gz | 7z x -si -ttar')
-
-with open('ECCODES_SOURCE_DIR', 'w') as f:
-    f.write(dir_name)
