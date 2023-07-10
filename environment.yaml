@@ -5,3 +5,12 @@ dependencies:
   - cmake
   - libpng
   - openjpeg=2.5.0
+  - msys2
+  - m2-bash
+  - m2-findutils
+  - m2-coreutils
+  - m2-grep
+  - m2-sed
+  - m2-gawk
+  - m2-diffutils
+  - m2-perl
