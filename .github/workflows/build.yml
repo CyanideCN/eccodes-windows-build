@@ -1,0 +1,52 @@
+name: eccode_build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+env:
+  tar_url: https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.30.2-Source.tar.gz?api=v2
+  dir_name: eccodes-2.30.2-Source
+  install_dir: C:\eccodes
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    strategy:
+      fail-fast: true
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: false
+          python-version: "3.10"
+          environment-file: environment.yaml
+          activate-environment: build
+      - run: |
+          conda info
+          conda list
+      - name: Download ecCodes
+        run: python download.py
+      - name: Build
+        run: |
+          cd eccodes-2.30.2-Source
+          mkdir build && cd build
+          cmake -G "NMake Makefiles" ^
+            -D CMAKE_INSTALL_PREFIX=${{ install_dir }} ^
+            -D CMAKE_BUILD_TYPE=Release ^
+            -D ENABLE_FORTRAN=0 ^
+            -D ENABLE_PYTHON=0 ^
+            -D ENABLE_NETCDF=0 ^
+            -D ENABLE_PNG=1 ^
+            -D ENABLE_JPG=1 ^
+            -D OPENJPEG_INCLUDE_DIR=%CONDA%\Library\include\openjpeg-2.3 ^
+            -D IEEE_LE=1 ^
+            -D ENABLE_EXAMPLES=0 ^
+            -D ENABLE_MEMFS=0 ^
+            -D ENABLE_TESTS=0 ^
+            -D ENABLE_EXTRA_TESTS=OFF ^
+          nmake install
