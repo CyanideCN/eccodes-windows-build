@@ -7,8 +7,6 @@ on:
     branches:
       - main
 env:
-  tar_url: https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.30.2-Source.tar.gz?api=v2
-  dir_name: eccodes-2.30.2-Source
   install_dir: C:\eccodes
 jobs:
   build:
@@ -36,7 +34,7 @@ jobs:
           cd eccodes-2.30.2-Source
           mkdir build && cd build
           cmake -G "NMake Makefiles" ^
-            -D CMAKE_INSTALL_PREFIX=${{ install_dir }} ^
+            -D CMAKE_INSTALL_PREFIX=${{ env.install_dir }} ^
             -D CMAKE_BUILD_TYPE=Release ^
             -D ENABLE_FORTRAN=0 ^
             -D ENABLE_PYTHON=0 ^
