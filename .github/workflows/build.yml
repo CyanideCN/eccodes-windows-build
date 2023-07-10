@@ -29,8 +29,6 @@ jobs:
       - name: Download ecCodes
         run: python download.py
       - uses: ilammy/msvc-dev-cmd@v1
-      - name: Install linux utils
-        run: conda install -c msys2 m2-bash m2-findutils m2-coreutils m2-grep m2-sed m2-gawk m2-diffutils m2-perl
       - name: Build
         run: |
           cd eccodes-2.30.2-Source
@@ -38,11 +36,7 @@ jobs:
           cmake ../CMakeLists.txt -G "NMake Makefiles" -D CMAKE_INSTALL_PREFIX=${{ env.install_dir }} -D CMAKE_BUILD_TYPE=Release -D ENABLE_FORTRAN=0 -D ENABLE_PYTHON=0 -D ENABLE_NETCDF=0 -D ENABLE_PNG=0 -D ENABLE_JPG=1 -D ENABLE_AEC=OFF -D OPENJPEG_INCLUDE_DIR=${{ env.conda_dir }}/Library/include/openjpeg-2.5 -D IEEE_LE=1 -D ENABLE_EXAMPLES=0 -D ENABLE_MEMFS=0 -D ENABLE_TESTS=0 -D ENABLE_EXTRA_TESTS=OFF
           nmake install
       - name: Packaging
-        run: |
-          copy "${{ env.conda_dir }}/Library/bin/openjp2.dll" "${{ env.install_dir }}/bin/"
-          copy "${{ env.conda_dir }}/Library/bin/libpng16.dll" "${{ env.install_dir }}/bin/"
-          copy "${{ env.conda_dir }}/Library/bin/zlib.dll" "${{ env.install_dir }}/bin/"
-          7z a eccodes-win-x64.zip "${{ env.install_dir }}"
+        run: python post_process.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
