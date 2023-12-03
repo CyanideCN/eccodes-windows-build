@@ -33,7 +33,7 @@ jobs:
         run: |
           cd eccodes-2.32.1-Source
           mkdir build && cd build
-          cmake ../CMakeLists.txt -G "NMake Makefiles" -D CMAKE_INSTALL_PREFIX=${{ env.install_dir }} -D CMAKE_BUILD_TYPE=Release -D ENABLE_FORTRAN=0 -D ENABLE_PYTHON=0 -D ENABLE_NETCDF=1 -D ENABLE_PNG=0 -D ENABLE_JPG=1 -D ENABLE_AEC=OFF -D OPENJPEG_INCLUDE_DIR=${{ env.conda_dir }}/Library/include/openjpeg-2.5 -D IEEE_LE=1 -D ENABLE_EXAMPLES=0 -D ENABLE_MEMFS=0 -D ENABLE_TESTS=0 -D ENABLE_EXTRA_TESTS=OFF
+          cmake ../CMakeLists.txt -G "NMake Makefiles" -D CMAKE_INSTALL_PREFIX=${{ env.install_dir }} -D CMAKE_BUILD_TYPE=Release -D ENABLE_FORTRAN=0 -D ENABLE_PYTHON=0 -D ENABLE_NETCDF=1 -D ENABLE_PNG=0 -D ENABLE_JPG=1 -D ENABLE_AEC=1 -D OPENJPEG_INCLUDE_DIR=${{ env.conda_dir }}/Library/include/openjpeg-2.5 -D IEEE_LE=1 -D ENABLE_EXAMPLES=0 -D ENABLE_MEMFS=0 -D ENABLE_TESTS=0 -D ENABLE_EXTRA_TESTS=OFF
           nmake install
       - name: Packaging
         run: python post_process.py
