@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-eccodes_version = '2.30.2'
+eccodes_version = '2.32.1'
 dir_name = f'eccodes-{eccodes_version}-Source'
 url = f'https://confluence.ecmwf.int/download/attachments/45757960/eccodes-{eccodes_version}-Source.tar.gz?api=v2'
 
