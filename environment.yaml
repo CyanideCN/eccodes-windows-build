@@ -5,3 +5,4 @@ dependencies:
   - cmake
   - libpng
   - openjpeg=2.5.0
+  - libnetcdf
